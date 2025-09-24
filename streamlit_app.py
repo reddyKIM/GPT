@@ -18,173 +18,285 @@ st.set_page_config(
 
 CUSTOM_CSS = """
 <style>
+:root {
+    color-scheme: light;
+    --mint: #b5f5ec;
+    --aqua: #0ea5e9;
+    --deep-navy: #0f172a;
+    --teal: #0f766e;
+    --lavender: #a855f7;
+}
+
 body {
-    background: linear-gradient(180deg, #eff9ff 0%, #fdf8ff 100%);
-    color: #0f172a;
+    background: radial-gradient(120% 120% at 50% 10%, rgba(186, 230, 253, 0.72) 0%, #fdf2ff 44%, #ffffff 100%);
+    color: var(--deep-navy);
     font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
 }
+
 .main .block-container {
     padding-top: 2.4rem;
     padding-bottom: 2.8rem;
     max-width: 520px;
 }
+
 .mobile-frame {
-    background: rgba(255, 255, 255, 0.92);
-    border-radius: 32px;
-    border: 2px solid rgba(14, 116, 144, 0.1);
-    box-shadow: 0 32px 56px rgba(14, 165, 233, 0.12);
-    padding: 2.6rem 2.2rem 1.8rem 2.2rem;
-    min-height: 780px;
+    background: rgba(255, 255, 255, 0.94);
+    border-radius: 36px;
+    border: 2px solid rgba(14, 165, 233, 0.14);
+    box-shadow: 0 32px 64px rgba(15, 118, 110, 0.18);
+    padding: 2.8rem 2.4rem 2rem 2.4rem;
+    min-height: 800px;
     display: flex;
     flex-direction: column;
-    gap: 1.6rem;
+    gap: 1.8rem;
+    position: relative;
+    overflow: hidden;
 }
+
+.mobile-frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(186, 230, 253, 0.25), rgba(224, 231, 255, 0.18));
+    pointer-events: none;
+}
+
+.slide-content {
+    position: relative;
+    z-index: 1;
+    animation: fadeIn 420ms ease-out;
+}
+
 .slide-title {
-    font-size: 2.45rem;
+    font-size: 3.6rem;
     font-weight: 800;
     letter-spacing: -0.02em;
-    color: #0f172a;
+    color: var(--deep-navy);
 }
+
 .slide-subtitle {
-    font-size: 1.18rem;
+    font-size: 1.45rem;
     font-weight: 600;
-    color: #0f766e;
+    color: var(--teal);
 }
+
 .slide-body {
-    font-size: 1.1rem;
-    line-height: 1.62;
+    font-size: 1.34rem;
+    line-height: 1.58;
 }
+
 .slide-body ul {
-    padding-left: 1.1rem;
+    padding-left: 1.2rem;
     margin: 0;
 }
+
 .slide-body li {
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.45rem;
 }
+
+.slide-body li::marker {
+    color: var(--aqua);
+}
+
 .note-box {
     margin-top: auto;
-    padding: 0.95rem 1.05rem;
-    border-radius: 18px;
-    background: #ecfeff;
-    color: #0f766e;
-    font-size: 0.94rem;
+    padding: 1.05rem 1.15rem;
+    border-radius: 20px;
+    background: linear-gradient(120deg, rgba(236, 254, 255, 0.9), rgba(224, 242, 254, 0.9));
+    color: var(--teal);
+    font-size: 1.05rem;
     display: flex;
     align-items: center;
-    gap: 0.55rem;
+    gap: 0.6rem;
+    box-shadow: inset 0 0 0 1px rgba(14, 165, 233, 0.1);
 }
+
 .note-box span {
-    font-weight: 600;
+    font-weight: 700;
 }
+
 .footer-note {
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     text-align: center;
-    color: rgba(15, 23, 42, 0.58);
-    margin-top: 1.4rem;
+    color: rgba(15, 23, 42, 0.62);
+    margin-top: 1.6rem;
 }
+
 .flow-grid {
     display: flex;
     flex-direction: column;
-    gap: 0.85rem;
+    gap: 0.95rem;
 }
+
 .flow-row {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.65rem;
+    gap: 0.75rem;
 }
+
 .flow-item {
-    font-weight: 600;
-    padding: 0.55rem 0.85rem;
+    font-weight: 700;
+    padding: 0.6rem 0.95rem;
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    color: #0f172a;
+    gap: 0.45rem;
+    color: var(--deep-navy);
+    position: relative;
+    backdrop-filter: blur(6px);
 }
+
 .flow-item.hex {
-    background: rgba(14, 165, 233, 0.16);
+    background: rgba(14, 165, 233, 0.18);
     clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
-    min-width: 120px;
+    min-width: 126px;
     justify-content: center;
 }
+
 .flow-item.guard {
-    background: rgba(248, 113, 113, 0.2);
+    background: rgba(248, 113, 113, 0.22);
     border-radius: 999px;
+    padding-inline: 1.1rem;
 }
+
 .flow-item.sync {
-    background: rgba(14, 116, 144, 0.18);
-    border-radius: 18px;
+    background: rgba(14, 116, 144, 0.2);
+    border-radius: 22px;
+    padding-inline: 1.2rem;
 }
+
 .badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.32rem 0.75rem;
+    padding: 0.36rem 0.78rem;
     border-radius: 999px;
-    font-size: 0.82rem;
-    font-weight: 600;
+    font-size: 0.98rem;
+    font-weight: 700;
     margin-right: 0.42rem;
 }
-.badge.full {background: #0d9488; color: #fff;}
-.badge.selective {background: #fbbf24; color: #78350f;}
-.badge.fail {background: #d1d5db; color: #0f172a;}
-.badge.block {background: #f87171; color: #fff;}
+
+.badge.full {background: #0d9488; color: #fff; box-shadow: 0 6px 12px rgba(13, 148, 136, 0.25);}
+.badge.selective {background: #fbbf24; color: #78350f; box-shadow: 0 6px 12px rgba(251, 191, 36, 0.3);}
+.badge.fail {background: #d1d5db; color: #0f172a; box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.4);}
+.badge.block {background: #f87171; color: #fff; box-shadow: 0 6px 12px rgba(248, 113, 113, 0.35);}
+
 .summary-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 16px 24px rgba(14, 165, 233, 0.12);
 }
+
+.summary-table thead {
+    background: rgba(14, 165, 233, 0.16);
+}
+
 .summary-table th {
-    background: rgba(14, 116, 144, 0.16);
-    color: #0f172a;
+    color: var(--deep-navy);
 }
+
 .summary-table th, .summary-table td {
     border: 1px solid rgba(14, 116, 144, 0.12);
-    padding: 0.55rem 0.6rem;
+    padding: 0.7rem 0.65rem;
     text-align: center;
 }
+
 .state-machine {
     background: rgba(129, 140, 248, 0.16);
-    padding: 1.1rem 1rem;
-    border-radius: 18px;
-    font-size: 1rem;
-    line-height: 1.6;
+    padding: 1.2rem 1.1rem;
+    border-radius: 20px;
+    font-size: 1.12rem;
+    line-height: 1.64;
 }
+
+.state-machine strong {
+    color: var(--lavender);
+}
+
 .checklist {
-    background: rgba(74, 222, 128, 0.16);
-    padding: 1rem 1.1rem;
-    border-radius: 18px;
-    font-size: 1rem;
-    line-height: 1.6;
+    background: rgba(74, 222, 128, 0.18);
+    padding: 1.15rem 1.2rem;
+    border-radius: 20px;
+    font-size: 1.12rem;
+    line-height: 1.64;
+    box-shadow: inset 0 0 0 1px rgba(22, 163, 74, 0.16);
 }
+
 .keyword-box {
     display: grid;
-    gap: 0.55rem;
+    gap: 0.65rem;
 }
+
 .keyword-box div {
-    background: rgba(14, 165, 233, 0.14);
-    border-radius: 14px;
-    padding: 0.55rem 0.75rem;
-    font-weight: 600;
+    background: rgba(14, 165, 233, 0.18);
+    border-radius: 16px;
+    padding: 0.7rem 0.85rem;
+    font-weight: 700;
     color: #0369a1;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
 }
+
+.keyword-box div::before {
+    content: "✨";
+}
+
 .hero-title {
-    font-size: 0.92rem;
-    letter-spacing: 0.32em;
-    color: rgba(15, 23, 42, 0.46);
+    font-size: 0.96rem;
+    letter-spacing: 0.28em;
+    color: rgba(15, 23, 42, 0.5);
     text-transform: uppercase;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.24rem;
 }
+
 .progress-label {
     display: flex;
     justify-content: center;
-    gap: 0.6rem;
-    font-size: 0.9rem;
+    gap: 0.7rem;
+    font-size: 0.98rem;
     color: rgba(15, 23, 42, 0.7);
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
 }
+
 .progress-label span {
-    font-weight: 700;
-    color: #0f766e;
+    font-weight: 800;
+    color: var(--teal);
+}
+
+.progress-dot-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-bottom: 0.4rem;
+}
+
+.progress-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(14, 165, 233, 0.2);
+    transition: all 0.2s ease;
+}
+
+.progress-dot.active {
+    background: var(--aqua);
+    width: 26px;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(18px) scale(0.99);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 </style>
 """
@@ -260,19 +372,19 @@ slides: List[Slide] = [
         body_html="""
         <div class='flow-grid'>
             <div class='flow-row'>
-                <span class='flow-item sync'>입력: Market WS · Account WS · exchangeInfo · TimeSync</span>
+                <span class='flow-item sync'>⚙️ 입력: Market WS · Account WS · exchangeInfo · TimeSync</span>
             </div>
             <div class='flow-row'>
                 <span class='flow-item hex'>Gate0.5 (MEG)</span>
                 <span class='flow-item hex'>G1 Regime</span>
-                <span class='flow-item guard'>Funding Block Guard</span>
+                <span class='flow-item guard'>🛡️ Funding Block Guard</span>
                 <span class='flow-item hex'>G2 EV</span>
                 <span class='flow-item hex'>G3 Risk</span>
                 <span class='flow-item hex'>G4 Signal</span>
                 <span class='flow-item hex'>G5 Order</span>
             </div>
             <div class='flow-row'>
-                <span class='flow-item sync'>보조: BracketManager · Validator · Logger</span>
+                <span class='flow-item sync'>🔄 보조: BracketManager · Validator · Logger</span>
             </div>
         </div>
         """,
@@ -357,9 +469,9 @@ slides: List[Slide] = [
         subtitle="BracketManager",
         body_html="""
         <div class='state-machine'>
-            NEW → (Entry fill) → OPEN → (TP partial) → PARTIAL → (TP fill all) → COMPLETED [SL 취소]<br><br>
-            OPEN / PARTIAL → (SL hit) → COMPLETED [TP 전취소]<br>
-            (어떤 상태든) 재시작 → RECONCILE → 상태 복원
+            <strong>NEW</strong> → (Entry fill) → <strong>OPEN</strong> → (TP partial) → <strong>PARTIAL</strong> → (TP fill all) → <strong>COMPLETED</strong> [SL 취소]<br><br>
+            OPEN / PARTIAL → (SL hit) → <strong>COMPLETED</strong> [TP 전취소]<br>
+            (어떤 상태든) 재시작 → <strong>RECONCILE</strong> → 상태 복원
         </div>
         """,
         note="부분 체결 시 SL을 잔여수량 reduceOnly로 교체",
@@ -476,6 +588,14 @@ st.markdown(
     f"{len(slides):02d} Slides</div>",
     unsafe_allow_html=True,
 )
+dot_markup = "".join(
+    f"<div class='progress-dot{' active' if idx == st.session_state.slide_index else ''}'></div>"
+    for idx in range(len(slides))
+)
+st.markdown(
+    f"<div class='progress-dot-wrapper'>{dot_markup}</div>",
+    unsafe_allow_html=True,
+)
 st.progress(progress_value)
 
 nav_left, nav_spacer, nav_right = st.columns([1.5, 3, 1.5])
@@ -498,10 +618,12 @@ current_slide = slides[st.session_state.slide_index]
 st.markdown("<div class='mobile-frame'>", unsafe_allow_html=True)
 st.markdown(
     f"""
-    <div class='slide-title'>{current_slide.title}</div>
-    <div class='slide-subtitle'>{current_slide.subtitle}</div>
-    <div class='slide-body'>{current_slide.body_html}</div>
-    <div class='note-box'>💡 <span>Speaker Note</span> {current_slide.note}</div>
+    <div class='slide-content'>
+        <div class='slide-title'>{current_slide.title}</div>
+        <div class='slide-subtitle'>{current_slide.subtitle}</div>
+        <div class='slide-body'>{current_slide.body_html}</div>
+        <div class='note-box'>💡 <span>Speaker Note</span> {current_slide.note}</div>
+    </div>
     """,
     unsafe_allow_html=True,
 )
